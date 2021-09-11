@@ -70,6 +70,7 @@ def mainpage(request):
     'trips' : Trips.objects.all(),
     'partof': Trips.objects.filter(group=request.session['user']['id']),
     'tojoin': Trips.objects.exclude(group=request.session['user']['id']),
+    'filterlist': Trips.objects.filter(organizer_id=request.session['user']['id'])
   }
   
   return render(request, 'travels.html', context)
@@ -113,6 +114,11 @@ def addtrip(request):
     
     trip = Trips.objects.create(description=destination, start=datefrom, end=dateto, plan=plan, organizer_id=request.session['user']['id'])
 
+    jointrip = Trips.objects.get(id=trip.id)
+    usertrip = Users.objects.get(id=request.session['user']['id'])
+
+    jointrip.group.add(usertrip)
+
     return redirect('/travels')
 
 @login_required
@@ -133,6 +139,4 @@ def cancel(request, tripid):
   canceltrip = Trips.objects.get(id=tripid)
   usertrip = Users.objects.get(id=request.session['user']['id'])
   canceltrip.group.remove(usertrip)
-  if canceltrip.organizer.id == request.session['user']['id']:
-    canceltrip.delete()
   return redirect('/travels')

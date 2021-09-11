@@ -15,7 +15,7 @@ class UsersManager(models.Manager):
       errors['name'] = 'Your name should be at least 3 characters'
 
     if len(postData['email']) < 3:
-      errors['email'] = 'Your name should be at least 3 characters'
+      errors['email'] = 'Your email should be at least 3 characters'
     
     if len(postData['password']) < 8:
       errors['password'] = 'Password should be at least 8 characters'

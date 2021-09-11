@@ -10,7 +10,6 @@
   </head>
   <body class="bg-secondary py-3">
     {% load static %}
-
     <nav class="rounded mx-5 navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <img src="{{request.session.user.avatar}}" alt="" width="50px">
@@ -21,20 +20,18 @@
         </ul>
       </div>
     </nav>
-    <div class="container bg-secondary text-dark">
-      <h2 class="mt-5">{{trips.description}}</h2>
-      <ul class="fs-4 list-unstyled border border-dark">
-        <li class="my-2">Planned by:        {{trips.organizer.name}}</li>
-        <li class="my-2">Description:       {{trips.plan}}</li>
-        <li class="my-2">Travel date From:  {{trips.start|date:"M d Y"}}</li>
-        <li class="my-2">Travel date To:    {{trips.end|date:"M d Y"}}</li>
+    <div class="mt-3 p-2 container rounded bg-dark text-dark">
+      <h4 class="fw-bolder mt-4 text-light">&#128204 {{trips.description}}</h4>
+      <ul class="fs-5 list-unstyled border border-3 border-dark rounded bg-light">
+        <li class="m-2"><b>&#128161 Planned by:</b>      {{trips.organizer.name}}</li>
+        <li class="m-2"><b>&#128221 Description:</b>       {{trips.plan}}</li>
+        <li class="m-2"><b>&#128197 Travel date From:</b>{{trips.start|date:"M d Y"}}</li>
+        <li class="m-2"><b>&#128197 Travel date To:</b>  {{trips.end|date:"M d Y"}}</li>
       </ul>
-      <h2 class="mt-4">Other Users Joining the Trip:</h2>
-      <ul class="fs-4 list-unstyled border border-dark">
+      <h4 class="fw-bolder mt-4 text-light">Users Joining the Trip:</h4>
+      <ul class=" fs-5 list-unstyled border border-3 border-dark rounded bg-light">
         {% for traveler in trips.group.all %}
-          {%if traveler.user_id != request.session.user.id %}
-            <li class="mt-2">{{traveler.name}}</li>
-          {%endif%}
+            <li class="m-2">&#128100 {{traveler.name}}</li>
         {% endfor %}
       </ul>
     </div>

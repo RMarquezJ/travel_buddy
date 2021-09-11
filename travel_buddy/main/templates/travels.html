@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <title>Login</title>
+    <title>Travel Dashboard</title>
   </head>
   <body class="bg-secondary py-3">
     {% load static %}
@@ -22,16 +22,16 @@
         </ul>
       </div>
     </nav>
-    <div class="container bg-secondary text-dark">
-      <h2 class="mt-5">Your Trip Schedules</h2>
-      <table class="fw-bold table table-hover table-stripped table-bordered border-dark">
+    <div class="container mt-3 bg-dark text-dark border border-dark border-5 rounded">
+      <h3 class="mt-5 text-light">Your Trip Schedules</h3>
+      <table class="fw-bold table table-light table-hover table-stripped table-bordered border-dark">
         <thead>
           <tr>
-            <th scope="col">Description</th>
-            <th scope="col">Travel Start Date</th>
-            <th scope="col">Travel End Date</th>
-            <th scope="col">Plan</th>
-            <th scope="col">Action<s/th>
+            <th scope="col">&#128204 Description</th>
+            <th scope="col">&#128197 Travel Start Date</th>
+            <th scope="col">&#128197 Travel End Date</th>
+            <th scope="col">&#128221 Plan</th>
+            <th scope="col">&#9997 Action<s/th>
           </tr>
         </thead>
         <tbody>
@@ -42,7 +42,7 @@
             <td>{{trip.start|date:"M d, Y"}}</td>
             <td>{{trip.end|date:"M d, Y"}}</td>
             <td>{{trip.plan}}</td>
-            <td>
+            <td><a class="btn btn-warning" href="/cancel/{{trip.id}}">Cancel</a>
               {%if trip.organizer_id == request.session.user.id %}
             <a class="del btn btn-danger" href="/delete/{{trip.id}}">Delete</a>
             {%endif%}
@@ -50,6 +50,7 @@
           {%endif%}
           {%endfor%}
           {%for trip in partof%}
+          {%if trip not in filterlist%}
           <tr>
             <th scope="row"><a class="fw-bolder text-dark text-decoration-none" href="/view/{{trip.id}}">&#128073 {{trip.description}}</a></th>
             <td>{{trip.start|date:"M d, Y"}}</td>
@@ -57,23 +58,24 @@
             <td>{{trip.plan}}</td>
             <td><a class="btn btn-warning" href="/cancel/{{trip.id}}">Cancel</a>
           </tr>
+          {%endif%}
           {%endfor%}
         </tbody>
       </table>
-      <h2 class="mt-5">Other Users Trip Schedules</h2>
-      <table class="fw-bold table table-hover table-stripped table-bordered border-dark">
+      <hr>
+      <h3 class="mt-5 text-light">Other Users Trip Schedules</h3>
+      <table class="fw-bold table table-light table-hover table-stripped table-bordered border-dark">
         <thead>
           <tr>
-            <th scope="col">Description</th>
-            <th scope="col">Travel Start Date</th>
-            <th scope="col">Travel End Date</th>
-            <th scope="col">Plan</th>
-            <th scope="col">Action<s/th>
+            <th scope="col">&#128204 Description</th>
+            <th scope="col">&#128197 Travel Start Date</th>
+            <th scope="col">&#128197 Travel End Date</th>
+            <th scope="col">&#128221 Plan</th>
+            <th scope="col">&#9997 Action<s/th>
           </tr>
         </thead>
         <tbody>
           {%for trip in tojoin%}
-          {%if trip.organizer_id != request.session.user.id%}
           <tr>
             <th scope="row"><a class="fw-bolder text-dark text-decoration-none" href="/view/{{trip.id}}">&#128073 {{trip.description}}</a></th>
             <td>{{trip.start|date:"M d, Y"}}</td>
@@ -81,7 +83,6 @@
             <td>{{trip.plan}}</td>
             <td><a class="btn btn-primary" href="/join/{{trip.id}}">Join</a>
           </tr>
-          {%endif%}
           {%endfor%}
           
         </tbody>

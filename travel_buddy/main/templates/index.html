@@ -17,11 +17,6 @@
       <h3 class="text-center mt-5">Register | Login</h1>
       <div class="row">
         <form class="col" action='' method="post">
-          <ul class="text-danger messages list-unstyled">
-            {%for message in messages%}
-              <li {% if message.tags %} class="{{message.tags}}"{% endif %}>{{message}}</li>
-            {%endfor%}
-          </ul>
           {%csrf_token%}
           <div class="fw-bold form-group my-2">
             <label for="">Name</label>
@@ -52,6 +47,11 @@
             <input type="password" class="form-control" name="password" placeholder="">
           </div>
           <input type="submit" class="btn btn-primary my-3" value="Login">
+          <ul class="text-danger messages list-unstyled">
+            {%for message in messages%}
+              <li {% if message.tags %} class="{{message.tags}}"{% endif %}>&#128683 {{message}}</li>
+            {%endfor%}
+          </ul>
         </form>
       </div>
     </div>
