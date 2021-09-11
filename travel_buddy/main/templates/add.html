@@ -45,9 +45,9 @@
           <input type="submit" class="btn btn-primary my-3" value="Submit">
         </form>
         <div class="col">
-          <ul class=" mt-3 text-danger messages list-unstyled">
+          <ul class=" mt-5 text-danger messages list-unstyled">
             {%for message in messages%}
-              <li {% if message.tags %} class="{{message.tags}}"{% endif %}>&#128123 {{message}}</li>
+              <li {% if message.tags %} class="{{message.tags}}fw-bold my-3"{% endif %}>&#128123 {{message}}</li>
             {%endfor%}
           </ul>
         </div>

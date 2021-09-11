@@ -64,7 +64,7 @@ def login(request):
 @login_required
 def mainpage(request):
 
-  excludeuser=request.session['user']['id']
+
   context = {
     'users' : Users.objects.all(),
     'trips' : Trips.objects.all(),

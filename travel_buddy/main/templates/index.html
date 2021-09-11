@@ -49,7 +49,7 @@
           <input type="submit" class="btn btn-primary my-3" value="Login">
           <ul class="text-danger messages list-unstyled">
             {%for message in messages%}
-              <li {% if message.tags %} class="{{message.tags}}"{% endif %}>&#128683 {{message}}</li>
+              <li {% if message.tags %} class="{{message.tags}} fw-bold my-2"{% endif %}>&#128683 {{message}}</li>
             {%endfor%}
           </ul>
         </form>

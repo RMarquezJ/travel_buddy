@@ -42,10 +42,14 @@
             <td>{{trip.start|date:"M d, Y"}}</td>
             <td>{{trip.end|date:"M d, Y"}}</td>
             <td>{{trip.plan}}</td>
-            <td><a class="btn btn-warning" href="/cancel/{{trip.id}}">Cancel</a>
+            <td>
+              {%if trip in partof%}
+              <a class="btn btn-warning" href="/cancel/{{trip.id}}">Cancel</a>
+              {%endif%}
               {%if trip.organizer_id == request.session.user.id %}
-            <a class="del btn btn-danger" href="/delete/{{trip.id}}">Delete</a>
-            {%endif%}
+              <a class="del btn btn-danger" href="/delete/{{trip.id}}">Delete</a>
+              {%endif%}
+            </td>  
           </tr>
           {%endif%}
           {%endfor%}
