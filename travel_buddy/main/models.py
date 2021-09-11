@@ -31,23 +31,23 @@ class TripsManager(models.Manager):
 
     errors={}
   
-    if len(postData['destination']) < 0:
-      errors['description'] = 'Should not be empty'
+    if len(postData['destination']) < 1:
+      errors['description'] = 'Destination Should not be empty'
 
-    if len(postData['plan']) < 0:
-      errors['plan'] = 'Should not be empty'
+    if len(postData['plan']) < 1:
+      errors['plan'] = ' Plan Should not be empty'
     
-    if len(postData['datefrom']) < 0:
+    if len(postData['datefrom']) < 1:
       errors['datefrom'] = 'Should not be empty'
     
-    if len(postData['dateto']) < 0:
+    if len(postData['dateto']) < 1:
       errors['dateto'] = 'Should not be empty'
     
     if datetime.strptime(postData['datefrom'],"%Y-%m-%d").date() < datetime.today().date():
       errors['datefrom'] = 'Travel Date From Should not be in the past'
     
     if datetime.strptime(postData['dateto'],"%Y-%m-%d").date() < datetime.strptime(postData['datefrom'],"%Y-%m-%d").date():
-      errors['datefrom'] = 'Travel Date From should not be past the Date To'
+      errors['datefrom'] = 'Travel Date From should not be past the Travel Date To'
 
     return errors
 

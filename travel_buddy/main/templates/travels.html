@@ -32,19 +32,20 @@
         </thead>
         <tbody>
           {%for trip in trips%}
-          {%if trip.organizer_id == request.session.user.id%}
+          {%if trip.organizer_id == request.session.user.id or trip.group.users_id == request.session.user.id%}
           <tr>
             <th scope="row"><a class="text-info text-decoration-none" href="/view/{{trip.id}}">{{trip.description}}</a></th>
             <td>{{trip.start|date:"M d, Y"}}</td>
             <td>{{trip.end|date:"M d, Y"}}</td>
             <td>{{trip.plan}}</td>
             <td><a class="btn btn-warning" href="/cancel/{{trip.id}}">Cancel</a>
-              {%if trip.organizer_id == request.session.user.id%}
+              {%if trip.organizer_id == request.session.user.id %}
             <a class="del btn btn-danger" href="/delete/{{trip.id}}">Delete</a>
             {%endif%}
           </tr>
           {%endif%}
           {%endfor%}
+        </tbody>
       </table>
       <h2 class="mt-5">Other Users Trip Schedules</h2>
       <table class="fw-bold table table-hover table-stripped table-bordered border-dark">
@@ -59,7 +60,7 @@
         </thead>
         <tbody>
           {%for trip in trips%}
-          {%if trip.group.user_id != request.session.user.id and trip.organizer_id != request.session.user.id%}
+          {%if trip.organizer_id != request.session.user.id or request.session.user.id not in trip.group.user_id %}
           <tr>
             <th scope="row"><a class="text-info text-decoration-none" href="/view/{{trip.id}}">{{trip.description}}</a></th>
             <td>{{trip.start|date:"M d, Y"}}</td>
@@ -69,6 +70,7 @@
           </tr>
           {%endif%}
           {%endfor%}
+          
         </tbody>
       </table>
     </div>

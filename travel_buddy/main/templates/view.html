@@ -27,7 +27,7 @@
         <li class="my-3">Travel date To:    {{trips.end|date:"M d Y"}}</li>
         <li class="mt-3"> <h1>Other Users Joining the Trip:</h1>
           {% for traveler in trips.group.all %}
-            {%if traveler.name != request.session.user.name %}
+            {%if traveler.user_id != request.session.user.id %}
           <br>{{traveler.name}}
             {%endif%}
           {% endfor %}
