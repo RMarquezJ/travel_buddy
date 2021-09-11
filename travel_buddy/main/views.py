@@ -57,16 +57,19 @@ def login(request):
     'email': user.email,
     'avatar':user.avatar
     }
-    messages.success(request, f'You have logged in as {user.name}')
+
     return redirect('/travels')
 
 
 @login_required
 def mainpage(request):
 
+  excludeuser=request.session['user']['id']
   context = {
     'users' : Users.objects.all(),
     'trips' : Trips.objects.all(),
+    'partof': Trips.objects.filter(group=request.session['user']['id']),
+    'tojoin': Trips.objects.exclude(group=request.session['user']['id']),
   }
   
   return render(request, 'travels.html', context)
@@ -130,4 +133,6 @@ def cancel(request, tripid):
   canceltrip = Trips.objects.get(id=tripid)
   usertrip = Users.objects.get(id=request.session['user']['id'])
   canceltrip.group.remove(usertrip)
+  if canceltrip.organizer.id == request.session['user']['id']:
+    canceltrip.delete()
   return redirect('/travels')

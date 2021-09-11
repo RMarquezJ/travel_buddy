@@ -56,7 +56,7 @@ class Users(models.Model):
   name = models.CharField(max_length=255)
   email = models.EmailField(unique=True)
   password = models.CharField(max_length=255)
-  avatar = models.URLField(default='https://i.pinimg.com/originals/13/f4/09/13f4093020fc96ba87eae8221d071af7.jpg')
+  avatar = models.URLField(default='https://www.clipartmax.com/png/middle/97-978328_avatar-icon-free-fa-user-circle-o.png')
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   objects = UsersManager()

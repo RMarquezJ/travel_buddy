@@ -10,28 +10,32 @@
   </head>
   <body class="bg-secondary py-3">
     {% load static %}
+
     <nav class="rounded mx-5 navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <img src="{{request.session.user.avatar}}" alt="" width="50px">
-        <span class="navbar-text"><h3>Welcome <span class="text-light">{{request.session.user.name}}</span>!</h3></span>
-        <a class="nav-link active btn btn-primary" aria-current="page" href="/travels">Back</a>
-        <a class="nav-link active btn btn-danger" aria-current="page" href="/logout">Logout</a>
+        <span class="navbar-text ms-5"><h3>Welcome <span class="text-light">{{request.session.user.name}}</span>!</h3></span>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item me-4"><a class="nav-link active btn btn-secondary" aria-current="page" href="/travels">Back</a></li>
+          <li class="nav-item"><a class="nav-link active btn btn-danger" aria-current="page" href="/logout">Logout</a></li>
+        </ul>
       </div>
     </nav>
     <div class="container bg-secondary text-dark">
-      <h1 class="mt-5">{{trips.description}}</h1>
-      <ul class="fs-4 list-unstyled">
-        <li class="my-3">Planned by:        {{trips.organizer.name}}</li>
-        <li class="my-3">Description:       {{trips.plan}}</li>
-        <li class="my-3">Travel date From:  {{trips.start|date:"M d Y"}}</li>
-        <li class="my-3">Travel date To:    {{trips.end|date:"M d Y"}}</li>
-        <li class="mt-3"> <h1>Other Users Joining the Trip:</h1>
-          {% for traveler in trips.group.all %}
-            {%if traveler.user_id != request.session.user.id %}
-          <br>{{traveler.name}}
-            {%endif%}
-          {% endfor %}
-        </li>
+      <h2 class="mt-5">{{trips.description}}</h2>
+      <ul class="fs-4 list-unstyled border border-dark">
+        <li class="my-2">Planned by:        {{trips.organizer.name}}</li>
+        <li class="my-2">Description:       {{trips.plan}}</li>
+        <li class="my-2">Travel date From:  {{trips.start|date:"M d Y"}}</li>
+        <li class="my-2">Travel date To:    {{trips.end|date:"M d Y"}}</li>
+      </ul>
+      <h2 class="mt-4">Other Users Joining the Trip:</h2>
+      <ul class="fs-4 list-unstyled border border-dark">
+        {% for traveler in trips.group.all %}
+          {%if traveler.user_id != request.session.user.id %}
+            <li class="mt-2">{{traveler.name}}</li>
+          {%endif%}
+        {% endfor %}
       </ul>
     </div>
     <script>

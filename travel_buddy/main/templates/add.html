@@ -15,9 +15,11 @@
     <nav class="rounded mx-5 navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <img src="{{request.session.user.avatar}}" alt="" width="50px">
-        <span class="navbar-text"><h3>Welcome <span class="text-light">{{request.session.user.name}}</span>!</h3></span>
-        <a class="nav-link active btn btn-primary" aria-current="page" href="/travels">Back</a>
-        <a class="nav-link active btn btn-danger" aria-current="page" href="/logout">Logout</a>
+        <span class="navbar-text ms-5"><h3>Welcome <span class="text-light">{{request.session.user.name}}</span>!</h3></span>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item me-4"><a class="nav-link active btn btn-secondary" aria-current="page" href="/travels">Back</a></li>
+          <li class="nav-item"><a class="nav-link active btn btn-danger" aria-current="page" href="/logout">Logout</a></li>
+        </ul>
       </div>
     </nav>
     <div class="row">
