@@ -121,11 +121,13 @@ def delete(request,tripid):
 @login_required
 def join(request, tripid):
   jointrip = Trips.objects.get(id=tripid)
-  jointrip.group.add(request.session['user'])
+  usertrip = Users.objects.get(id=request.session['user']['id'])
+  jointrip.group.add(usertrip)
   return redirect('/travels')
 
 @login_required
 def cancel(request, tripid):
   canceltrip = Trips.objects.get(id=tripid)
-  canceltrip.group.remove(request.session['user'])
+  usertrip = Users.objects.get(id=request.session['user']['id'])
+  canceltrip.group.remove(usertrip)
   return redirect('/travels')
